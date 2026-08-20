@@ -1,0 +1,171 @@
+================================================================
+WEEK 5 - STUDENT INFORMATION SYSTEM
+Encapsulation - documentation
+================================================================
+
+SCENARIO
+----------------------------------------------------------------
+A university wants to store student information securely.
+Each student has a Student ID, a Name and a CGPA.
+Students should NOT be able to change the variables directly,
+so every variable is declared private and is reached only
+through getters and setters.
+
+An extra variable, programme, was added in this activity.
+
+
+FILES IN THIS FOLDER
+----------------------------------------------------------------
+Student.java       The class with the private variables, the
+                   setters and the getters.
+Main.java          The main programme that creates a Student
+                   object and prints its details.
+documentation.txt  This file with the answers to the questions.
+
+
+THE VARIABLES OF THE STUDENT CLASS
+----------------------------------------------------------------
+private String studentID;    the ID number of the student
+private String name;         the name of the student
+private double cgpa;         the CGPA of the student
+private String programme;    the programme of the student (added)
+
+Each variable has one setter and one getter:
+setStudentID / getStudentID
+setName      / getName
+setCGPA      / getCGPA
+setProgramme / getProgramme
+
+
+================================================================
+ANSWERS TO THE QUESTIONS
+================================================================
+
+QUESTION 1: Why are the variables declared as private?
+----------------------------------------------------------------
+The variables are declared private so that they are hidden
+inside the Student class. A private variable can only be used
+by the code that is written inside the same class, so no other
+class can read it or change it directly.
+
+This is called encapsulation, or data hiding, and it is done
+for three reasons:
+
+1. Protection of the data.
+   No other class can write something like
+   student.cgpa = 99.9;
+   because the variable is not visible outside the class. The
+   class itself stays in control of its own data.
+
+2. Control of the values.
+   Every change has to pass through a setter method, so the
+   class can check the value before it is stored. For example
+   setCGPA() can refuse a CGPA that is not between 0.0 and 4.0.
+
+3. Easier maintenance.
+   The inside of the class can be changed later without breaking
+   the other classes, because the other classes only use the
+   methods, not the variables.
+
+In this scenario the university wants the information stored
+securely, and private variables are exactly what gives that
+security.
+
+
+QUESTION 2: What happens if the variables are declared public?
+----------------------------------------------------------------
+If the variables were public, they could be reached and changed
+directly from any other class, like this:
+
+    Student student = new Student();
+    student.cgpa = -5.0;        // allowed if cgpa is public
+    student.name = "";          // allowed if name is public
+
+The results of that would be:
+
+1. The data is no longer protected.
+   Anybody can change the student ID, the name or the CGPA at
+   any time, even by mistake.
+
+2. Wrong values can be stored.
+   A CGPA of -5.0 or of 100.0 is impossible in real life, but
+   nothing would stop it, because the setter that checks the
+   value is skipped completely.
+
+3. The getters and the setters become useless.
+   Other programmers would simply use the variables directly,
+   so any checking written in the setters would never run.
+
+4. The programme becomes harder to maintain.
+   If the class is changed later, for example if cgpa becomes a
+   String, every other class that used the variable directly
+   would stop compiling.
+
+In short, public variables break encapsulation and the student
+information would no longer be stored securely.
+
+
+QUESTION 3: Why do we use getters and setters?
+----------------------------------------------------------------
+Getters and setters are public methods that give a safe and
+controlled way in and out of the private variables.
+
+A getter reads a value:      public String getName() { return name; }
+A setter writes a value:     public void setName(String name) { this.name = name; }
+
+They are used because:
+
+1. They give controlled access.
+   The class decides what can be read and what can be written.
+   A variable can be made read only simply by writing a getter
+   and no setter.
+
+2. They allow validation.
+   A setter can check the value before storing it, for example
+   refusing a negative CGPA, so the object can never hold data
+   that does not make sense.
+
+3. They keep encapsulation.
+   The other classes work with methods and never see how the
+   data is really stored inside the class.
+
+4. They make the code flexible.
+   The way a value is calculated or stored can be changed inside
+   the getter or the setter, and the classes that call them do
+   not have to be changed at all.
+
+In Main.java the object is filled with setStudentID(), setName(),
+setCGPA() and setProgramme(), and it is printed with
+getStudentID(), getName(), getCGPA() and getProgramme(). The
+private variables are never touched directly.
+
+
+================================================================
+HOW TO COMPILE AND RUN
+================================================================
+Open a terminal inside the week_5 folder and type:
+
+    javac *.java
+    java Main
+
+
+================================================================
+EXPECTED OUTPUT
+================================================================
+Student ID : CU12345
+Name       : Ali
+CGPA       : 3.75
+Programme  : BIT
+
+
+================================================================
+TESTING
+================================================================
+The programme was compiled with javac *.java and run with
+java Main on Linux using JDK 21. There were no compilation
+errors and no runtime errors, and the output above is the real
+output of the programme.
+
+================================================================
+End of documentation
+================================================================
